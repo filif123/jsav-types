@@ -1,5 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
+declare const JSAV: jsav.Jsav;
+
 declare module jsav {
   /**
    * JSAV is a JavaScript library for creating interactive data structures and algorithms.

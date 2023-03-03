@@ -4,13 +4,15 @@
   "description": "TypeScript definitions for JSAV library",
   "types": "index.d.ts",
   "main": "",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "keywords": [],
-  "author": "",
+  "author": "filif123",
   "license": "MIT",
   "dependencies": {
     "@types/jquery": "^3.5.16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/filif123/jsav-types.git"
   }
 }
