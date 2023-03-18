@@ -1,7 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
 declare module jsav {
-    
     export interface JsavDataStructure {
         /**
          * Creates a new double linked list with the given options.
@@ -9,9 +8,11 @@ declare module jsav {
          */
         dlist(options?: JsavListOptions): JsavDoubleLinkList;
     }
-    
-    export interface JsavDoubleLinkList extends JsavList {}
-    
+
+    export interface JsavDoubleLinkList extends JsavList {
+        //TODO
+    }
+
     export interface JsavBinaryTree {
         /**
          * Inserts a value or array of values into the binary trees.
@@ -21,7 +22,7 @@ declare module jsav {
          * @param options
          * @returns the node if only a value was inserted, and the tree if an array was inserted
          */
-        insert(value: Primitive|Primitive[], options?: {toRight?: boolean}): JsavBinaryTreeNode;
+        insert(value: Primitive | Primitive[], options?: { toRight?: boolean }): JsavBinaryTreeNode;
 
         /**
          * Finds an unbalanced node from the tree if there is one, otherwise it undefined will be returned
@@ -35,7 +36,7 @@ declare module jsav {
          */
         addEmptyNodes(): void;
     }
-    
+
     export interface JsavBinaryTreeNode {
         /**
          * Adds empty nodes to all the nodes in the tree.
@@ -68,7 +69,7 @@ declare module jsav {
          */
         rotateRL(): false;
     }
-    
+
     interface JsavListNode {
         /**
          * Returns the prev node in the linked list. If no next, returns null.
@@ -76,12 +77,12 @@ declare module jsav {
         prev(): JsavListNode;
 
         /**
-         * Sets the prev node to be the passed node. 
+         * Sets the prev node to be the passed node.
          * The optional second argument options should be an object...
          * @param node - the node to set as the prev node
          * @param options - the options to set
          */
-        prev(node: JsavListNode|null, options?: LinkListNextOptions): JsavListNode;
+        prev(node: JsavListNode | null, options?: LinkListNextOptions): JsavListNode;
 
         /**
          * Returns the JSAV Edge object that points to the prev item in the list.
@@ -89,5 +90,3 @@ declare module jsav {
         edgeToPrev(): JsavEdge;
     }
 }
-
-    

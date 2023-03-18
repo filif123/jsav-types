@@ -1,6 +1,4 @@
-// noinspection JSUnusedGlobalSymbols
-
-declare const JSAV: jsav.Jsav;
+declare var JSAV: jsav.Jsav;
 
 declare module jsav {
   /**
@@ -21,10 +19,7 @@ declare module jsav {
      * @param element - The element to use as the container for the JSAV instance.
      * @param options - Options for the JSAV instance.
      */
-    new (
-      element: string | HTMLElement,
-      options?: JsavInstanceOptions
-    ): JsavInstance;
+    new (element: string | HTMLElement, options?: JsavInstanceOptions): JsavInstance;
   }
 
   export type JsavTypes = {
@@ -36,7 +31,10 @@ declare module jsav {
     Edge: JsavEdge;
   };
 
-  export type Primitive = string | number | boolean | symbol;
+  /**
+   * Primitive types.
+   */
+  export type Primitive = string | number | boolean;
 
   /**
    * JSAV instance options.
@@ -206,11 +204,7 @@ declare module jsav {
      * @param target - the target structure for the pointer
      * @param options - options for the pointer
      */
-    pointer(
-      name: string,
-      target?: JsavStructure,
-      options?: JsavPointerOptions
-    ): JsavPointer;
+    pointer(name: string, target?: JsavStructure, options?: JsavPointerOptions): JsavPointer;
 
     /**
      * This is a method of the JSAV object.
@@ -235,10 +229,7 @@ declare module jsav {
      * @param codelines - the lines of code
      * @param options - options for the code
      */
-    code(
-      codelines: string | string[],
-      options?: PseudoCodeOptions
-    ): JsavPseudoCode;
+    code(codelines: string | string[], options?: PseudoCodeOptions): JsavPseudoCode;
 
     /**
      * Creates a new JSAV psedocode instance.
@@ -256,11 +247,7 @@ declare module jsav {
      * in grading of the exercise. The return value can be a single data structure or an array of structures.
      * @param options
      */
-    exercise(
-      modelSolution: Function,
-      reset: Function,
-      options: ExerciseOptions
-    ): JsavExercise;
+    exercise(modelSolution: Function, reset: Function, options: ExerciseOptions): JsavExercise;
 
     /**
      * This is a method of the AV object. It initializes an interactive question of the given type (qtype).
@@ -272,9 +259,9 @@ declare module jsav {
      * @param options - ONLY for the question type TF.
      */
     question(
-      qtype: "TF" | "MC" | "MS",
-      questionText: string,
-      options?: QuestionOptions
+        qtype: "TF" | "MC" | "MS",
+        questionText: string,
+        options?: QuestionOptions
     ): JsavQuestion;
 
     /**
@@ -297,6 +284,11 @@ declare module jsav {
      * @returns  A JSAV object. Thus, this method may be chained with, for example, the umsg method.
      */
     step(): JsavInstance;
+
+    /**
+     * Function to the modelanswer jsav instance.
+     */
+    gradeableStep(): void;
 
     /**
      * Forwards the slideshow to the next step.
@@ -793,10 +785,10 @@ declare module jsav {
      * @param properties - the properties of the circle
      */
     circle(
-      cx: number,
-      cy: number,
-      r: number,
-      properties?: { [index: string]: string | number | boolean }
+        cx: number,
+        cy: number,
+        r: number,
+        properties?: { [index: string]: string | number | boolean }
     ): JsavGCircle;
 
     /**
@@ -829,11 +821,11 @@ declare module jsav {
      * @param properties - the properties of the circle
      */
     ellipse(
-      cx: number,
-      cy: number,
-      rx: number,
-      ry: number,
-      properties?: { [index: string]: string | number | boolean }
+        cx: number,
+        cy: number,
+        rx: number,
+        ry: number,
+        properties?: { [index: string]: string | number | boolean }
     ): JsavGEllipse;
 
     /**
@@ -868,11 +860,11 @@ declare module jsav {
      * @param properties - the properties of the line
      */
     line(
-      x1: number,
-      y1: number,
-      x2: number,
-      y2: number,
-      properties?: { [index: string]: string | number | boolean }
+        x1: number,
+        y1: number,
+        x2: number,
+        y2: number,
+        properties?: { [index: string]: string | number | boolean }
     ): JsavGLine;
 
     /**
@@ -899,12 +891,7 @@ declare module jsav {
      * @param newx2 - the new x coordinate of the second point
      * @param newy2 - the new y coordinate of the second point
      */
-    movePoints(
-      newx1: number,
-      newy1: number,
-      newx2: number,
-      newy2: number
-    ): void;
+    movePoints(newx1: number, newy1: number, newx2: number, newy2: number): void;
 
     /**
      * Returns the points of the line as an array of arrays.
@@ -922,8 +909,8 @@ declare module jsav {
      * @param properties - the properties of the polyline
      */
     polyline(
-      points: JsavGPoint[],
-      properties?: { [index: string]: string | number | boolean }
+        points: JsavGPoint[],
+        properties?: { [index: string]: string | number | boolean }
     ): JsavGPolyline;
 
     /**
@@ -959,8 +946,8 @@ declare module jsav {
      * @param properties - the properties of the polygon
      */
     polygon(
-      points: JsavGPoint[],
-      properties?: { [index: string]: string | number | boolean }
+        points: JsavGPoint[],
+        properties?: { [index: string]: string | number | boolean }
     ): JsavGPolygon;
 
     /**
@@ -996,10 +983,7 @@ declare module jsav {
      * @param path - the path of the path element
      * @param properties - the properties of the path
      */
-    path(
-      path: string,
-      properties?: { [index: string]: string | number | boolean }
-    ): JsavGPath;
+    path(path: string, properties?: { [index: string]: string | number | boolean }): JsavGPath;
 
     /**
      * Returns the current path of the object.
@@ -1028,12 +1012,12 @@ declare module jsav {
      * @param properties - the properties of the rectangle
      */
     rect(
-      x: number,
-      y: number,
-      w: number,
-      h: number,
-      r?: number,
-      properties?: { [index: string]: string | number | boolean }
+        x: number,
+        y: number,
+        w: number,
+        h: number,
+        r?: number,
+        properties?: { [index: string]: string | number | boolean }
     ): JsavGRect;
 
     /**
@@ -1063,12 +1047,7 @@ declare module jsav {
      * @param toArray - the array to move the value to
      * @param toIndex - the index to move the value to
      */
-    moveValue(
-      fromArray: JsavArray,
-      fromIndex: number,
-      toArray: JsavArray,
-      toIndex: number
-    ): void;
+    moveValue(fromArray: JsavArray, fromIndex: number, toArray: JsavArray, toIndex: number): void;
 
     /**
      * Moves value at fromIndex in fromArray to toNode. The value in fromIndex will be an empty string after this operation.
@@ -1076,11 +1055,7 @@ declare module jsav {
      * @param fromIndex - the index of the value to move
      * @param toNode - the node to move the value to
      */
-    moveValue(
-      fromArray: JsavArray,
-      fromIndex: number,
-      toNode: JsavNode | JsavVariable
-    ): void;
+    moveValue(fromArray: JsavArray, fromIndex: number, toNode: JsavNode | JsavVariable): void;
 
     /**
      * Moves value in fromNode to toIndex in toArray. The value in fromNode will be an empty string after this operation.
@@ -1088,21 +1063,14 @@ declare module jsav {
      * @param toArray - the array to move the value to
      * @param toIndex - the index to move the value to
      */
-    moveValue(
-      fromNode: JsavNode | JsavVariable,
-      toArray: JsavArray,
-      toIndex: number
-    ): void;
+    moveValue(fromNode: JsavNode | JsavVariable, toArray: JsavArray, toIndex: number): void;
 
     /**
      * Moves value in fromNode to toNode. The value in fromNode will be an empty string after this operation.
      * @param fromNode - the node to move the value from
      * @param toNode - the node to move the value to
      */
-    moveValue(
-      fromNode: JsavNode | JsavVariable,
-      toNode: JsavNode | JsavVariable
-    ): void;
+    moveValue(fromNode: JsavNode | JsavVariable, toNode: JsavNode | JsavVariable): void;
 
     /**
      * Copies value at fromIndex in fromArray to toIndex in toArray.
@@ -1111,12 +1079,7 @@ declare module jsav {
      * @param toArray - the array to copy the value to
      * @param toIndex - the index to copy the value to
      */
-    copyValue(
-      fromArray: JsavArray,
-      fromIndex: number,
-      toArray: JsavArray,
-      toIndex: number
-    ): void;
+    copyValue(fromArray: JsavArray, fromIndex: number, toArray: JsavArray, toIndex: number): void;
 
     /**
      * Copies value at fromIndex in fromArray to toNode.
@@ -1124,11 +1087,7 @@ declare module jsav {
      * @param fromIndex - the index of the value to copy
      * @param toNode - the node to copy the value to
      */
-    copyValue(
-      fromArray: JsavArray,
-      fromIndex: number,
-      toNode: JsavNode | JsavVariable
-    ): void;
+    copyValue(fromArray: JsavArray, fromIndex: number, toNode: JsavNode | JsavVariable): void;
 
     /**
      * Copies value in fromNode to toIndex in toArray.
@@ -1136,21 +1095,14 @@ declare module jsav {
      * @param toArray - the array to copy the value to
      * @param toIndex - the index to copy the value to
      */
-    copyValue(
-      fromNode: JsavNode | JsavVariable,
-      toArray: JsavArray,
-      toIndex: number
-    ): void;
+    copyValue(fromNode: JsavNode | JsavVariable, toArray: JsavArray, toIndex: number): void;
 
     /**
      * Copies value in fromNode to toNode.
      * @param fromNode - the node to copy the value from
      * @param toNode - the node to copy the value to
      */
-    copyValue(
-      fromNode: JsavNode | JsavVariable,
-      toNode: JsavNode | JsavVariable
-    ): void;
+    copyValue(fromNode: JsavNode | JsavVariable, toNode: JsavNode | JsavVariable): void;
 
     /**
      * Swaps value at fromIndex in fromArray to toIndex in toArray.
@@ -1159,12 +1111,7 @@ declare module jsav {
      * @param toArray - the array to swap the value to
      * @param toIndex - the index to swap the value to
      */
-    swapValue(
-      fromArray: JsavArray,
-      fromIndex: number,
-      toArray: JsavArray,
-      toIndex: number
-    ): void;
+    swapValue(fromArray: JsavArray, fromIndex: number, toArray: JsavArray, toIndex: number): void;
 
     /**
      * Swaps value at fromIndex in fromArray to toNode.
@@ -1172,11 +1119,7 @@ declare module jsav {
      * @param fromIndex - the index of the value to swap
      * @param toNode - the node to swap the value to
      */
-    swapValue(
-      fromArray: JsavArray,
-      fromIndex: number,
-      toNode: JsavNode | JsavVariable
-    ): void;
+    swapValue(fromArray: JsavArray, fromIndex: number, toNode: JsavNode | JsavVariable): void;
 
     /**
      * Swaps value in fromNode to toIndex in toArray.
@@ -1184,21 +1127,14 @@ declare module jsav {
      * @param toArray - the array to swap the value to
      * @param toIndex - the index to swap the value to
      */
-    swapValue(
-      fromNode: JsavNode | JsavVariable,
-      toArray: JsavArray,
-      toIndex: number
-    ): void;
+    swapValue(fromNode: JsavNode | JsavVariable, toArray: JsavArray, toIndex: number): void;
 
     /**
      * Swaps value in fromNode to toNode.
      * @param fromNode - the node to swap the value from
      * @param toNode - the node to swap the value to
      */
-    swapValue(
-      fromNode: JsavNode | JsavVariable,
-      toNode: JsavNode | JsavVariable
-    ): void;
+    swapValue(fromNode: JsavNode | JsavVariable, toNode: JsavNode | JsavVariable): void;
   }
 
   /**
@@ -1333,26 +1269,25 @@ declare module jsav {
     id(newId?: string): string;
 
     /**
+     * Recalculate the layout of the structure.
+     * @param options - The options to set.
+     */
+    layout(options?: any): void;
+
+    /**
      * Returns the value of the CSS property cssPropertyName for this node.
      * @param cssPropertyName
      * @param value
      * @param options
      */
-    css(
-      cssPropertyName: string,
-      value?: string,
-      options?: { [index: string]: Primitive }
-    ): string;
+    css(cssPropertyName: string, value?: string, options?: { [index: string]: Primitive }): string;
 
     /**
      * Sets the CSS properties in the props object for this node.
      * @param props - The properties to set.
      * @param options - The options to set.
      */
-    css(
-      props: { [index: string]: Primitive },
-      options?: { [index: string]: Primitive }
-    ): void;
+    css(props: { [index: string]: Primitive }, options?: { [index: string]: Primitive }): void;
 
     /// EVENTS
 
@@ -1421,13 +1356,13 @@ declare module jsav {
      * and vertical values “top”, “center”, “bottom”. Defaults to center center. Only has an effect if
      * relativeTo is specified.
      */
-    anchor?: string;
+    anchor?: JsavAnchor;
 
     /**
      *  Similar to anchor, but the position on this element. Defaults to center center.
      *  Only has an effect if relativeTo is specified.
      */
-    myAnchor?: string;
+    myAnchor?: JsavAnchor;
 
     /**
      * A boolean indicating whether or not this structure should move when the relative element moves.
@@ -1463,10 +1398,7 @@ declare module jsav {
      * @param css - The CSS properties to apply.
      * @returns a JSAV array object. Thus, this method can be chained.
      */
-    css(
-      index: JsavIndiciesSelector,
-      css: { [index: string]: Primitive }
-    ): JsavArray;
+    css(index: JsavIndiciesSelector, css: { [index: string]: Primitive }): JsavArray;
 
     /**
      * Returns the value of CSS property cssPropertyName for the first index matching the indices parameter.
@@ -1474,8 +1406,7 @@ declare module jsav {
      * @param index - The indices to get the CSS property from.
      * @param cssPropertyName - The CSS property to get.
      */
-
-    //css(index: JsavIndiciesSelector, cssPropertyName: string): string;
+    css(index: JsavIndiciesSelector, cssPropertyName: string): string;
 
     /**
      * Returns the value of CSS property cssPropertyName for the array.
@@ -1500,7 +1431,6 @@ declare module jsav {
      * Parameter indices can be a number, array, true, or function.
      * When indices is true, then all elements of the array are highlighted.
      * When indices is a function, then the function is called for each index in the array.
-     * The function should return true if the index should be highlighted, and false otherwise.
      * @param index - The indices to highlight.
      * @returns a JSAV array object. Thus, this method can be chained.
      */
@@ -1511,7 +1441,6 @@ declare module jsav {
      * Parameter indices can be a number, array, true, or function.
      * When indices is true, then all elements of the array are unhighlighted.
      * When indices is a function, then the function is called for each index in the array.
-     * The function should return true if the index should be unhighlighted, and false otherwise.
      * @param index - The indices to unhighlight.
      * @returns a JSAV array object. Thus, this method can be chained.
      */
@@ -1581,11 +1510,7 @@ declare module jsav {
      * @param className
      * @param options
      */
-    addClass(
-      index: JsavIndiciesSelector,
-      className: string,
-      options?: any
-    ): void;
+    addClass(index: JsavIndiciesSelector, className: string, options?: any): void;
 
     /**
      * Removes the CSS class className to given indices and animates the changes.
@@ -1594,11 +1519,7 @@ declare module jsav {
      * @param className
      * @param options
      */
-    removeClass(
-      index: JsavIndiciesSelector,
-      className: string,
-      options?: any
-    ): void;
+    removeClass(index: JsavIndiciesSelector, className: string, options?: any): void;
 
     /**
      * Toggles the CSS class className to given indices and animates the changes.
@@ -1607,11 +1528,7 @@ declare module jsav {
      * @param className - the CSS class to toggle
      * @param options - options for the toggle
      */
-    toggleClass(
-      index: JsavIndiciesSelector,
-      className: string,
-      options?: any
-    ): void;
+    toggleClass(index: JsavIndiciesSelector, className: string, options?: any): void;
 
     /**
      * Returns true if the array has the CSS class className.
@@ -1727,7 +1644,7 @@ declare module jsav {
      * If the optional newValue parameter is given, the value is set to the given value.
      * @param newValue - the new value to set the node to
      */
-    value(newValue?: Primitive): any;
+    value(newValue?: Primitive): Primitive;
 
     /**
      * Highlights this node.
@@ -1748,14 +1665,14 @@ declare module jsav {
 
     /**
      * Returns the label attached to this node.
-     * UNOFFICIAL: This is not in the JSAV documentation, but it is in the source code.
+     * UNOFFICIAL: This is not in the JSAV documentation, but it is in the edited source code.
      */
     label(): string;
 
     /**
      * Sets the value of the label attached to this node.
-     * UNOFFICIAL: This is not in the JSAV documentation, but it is in the source code.
-     * @param newLabel
+     * UNOFFICIAL: This is not in the JSAV documentation, but it is in the edited source code.
+     * @param newLabel - the new label to set
      */
     label(newLabel: string): string;
   }
@@ -1764,12 +1681,7 @@ declare module jsav {
    * JSAV Edge structure.
    */
   export interface JsavEdge extends JsavStructure {
-    new (
-      jsav: JsavInstance,
-      start?: JsavNode,
-      end?: JsavNode,
-      options?: JsavEdgeOptions
-    ): JsavEdge;
+    new (jsav: JsavInstance, start?: JsavNode, end?: JsavNode, options?: JsavEdgeOptions): JsavEdge;
 
     /**
      * Returns the start node of this edge. If the optional node parameter is given, sets the start node of this edge.
@@ -1817,13 +1729,20 @@ declare module jsav {
      * @param value - the value to store in the node
      * @param options - options for the node
      */
-    addNode(value: any, options?: JsavNodeOptions): JsavNode;
+    addNode(value: any, options?: JsavNodeOptions): JsavGraphNode;
+
+    /**
+     * Adds a new node with value to the graph. Returns the new node.
+     * @param value - the value to store in the node
+     * @param options - options for the node
+     */
+    newNode(value: any, options?: JsavNodeOptions): JsavGraphNode;
 
     /**
      * Removes the given node from the graph.
      * @param node - the node to remove
      */
-    removeNode(node: JsavNode): void;
+    removeNode(node: JsavGraphNode): void;
 
     /**
      * Adds edge from fromNode to toNode. Returns the new edge.
@@ -1831,11 +1750,7 @@ declare module jsav {
      * @param toNode - the node to end the edge at
      * @param options - options for the edge
      */
-    addEdge(
-      fromNode: JsavNode,
-      toNode: JsavNode,
-      options?: JsavEdgeOptions
-    ): JsavEdge;
+    addEdge(fromNode: JsavGraphNode, toNode: JsavGraphNode, options?: JsavEdgeOptions): JsavEdge;
 
     /**
      * Removes the given edge from the graph.
@@ -1849,28 +1764,28 @@ declare module jsav {
      * @param fromNode - the node to start the edge from
      * @param toNode - the node to end the edge at
      */
-    removeEdge(fromNode: JsavNode, toNode: JsavNode): JsavGraph;
+    removeEdge(fromNode: JsavGraphNode, toNode: JsavGraphNode): JsavGraph;
 
     /**
      * Returns true if the graph has an edge from fromNode to toNode.
      * @param fromNode - the node to start the edge from
      * @param toNode - the node to end the edge at
      */
-    hasEdge(fromNode: JsavNode, toNode: JsavNode): boolean;
+    hasEdge(fromNode: JsavGraphNode, toNode: JsavGraphNode): boolean;
 
     /**
      * Returns the edge from fromNode to toNode.
      * @param fromNode - the node to start the edge from
      * @param toNode - the node to end the edge at
      */
-    getEdge(fromNode: JsavNode, toNode: JsavNode): JsavEdge;
+    getEdge(fromNode: JsavGraphNode, toNode: JsavGraphNode): JsavEdge;
 
     /**
      * Returns an iterable array of nodes in the graph.
      * The returned structure can be used as a normal JavaScript array.
      * In addition, it has methods .next(), .hasNext(), and .reset() for iterating over the values.
      */
-    nodes(): JsavNode[];
+    nodes(): JsavGraphNode[];
 
     /**
      * Returns the number of nodes in the graph.
@@ -1903,10 +1818,7 @@ declare module jsav {
      * @param options - options for the click
      * @returns a JSAV graph object. Thus, this method can be chained.
      */
-    click(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavGraph;
+    click(handler: (event: any) => void, options?: { edge: boolean }): JsavGraph;
 
     /**
      * Adds a handler to be called when the graph is double-clicked.
@@ -1914,10 +1826,7 @@ declare module jsav {
      * @param options - options for the double-click
      * @returns a JSAV graph object. Thus, this method can be chained.
      */
-    dblclick(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavGraph;
+    dblclick(handler: (event: any) => void, options?: { edge: boolean }): JsavGraph;
 
     /**
      * Adds a handler to be called when mouse is pressed down on the graph.
@@ -1925,10 +1834,7 @@ declare module jsav {
      * @param options - options for the right-click
      * @returns a JSAV graph object. Thus, this method can be chained.
      */
-    mousedown(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavGraph;
+    mousedown(handler: (event: any) => void, options?: { edge: boolean }): JsavGraph;
 
     /**
      * Adds a handler to be called when mouse is released on the graph.
@@ -1936,10 +1842,7 @@ declare module jsav {
      * @param options - options for the mouseup
      * @returns a JSAV graph object. Thus, this method can be chained.
      */
-    mouseup(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavGraph;
+    mouseup(handler: (event: any) => void, options?: { edge: boolean }): JsavGraph;
 
     /**
      * Adds a handler to be called when mouse is moved over the graph.
@@ -1947,10 +1850,7 @@ declare module jsav {
      * @param options - options for the mousemove
      * @returns a JSAV graph object. Thus, this method can be chained.
      */
-    mousemove(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavGraph;
+    mousemove(handler: (event: any) => void, options?: { edge: boolean }): JsavGraph;
 
     /**
      * Adds a handler to be called when mouse enters the graph.
@@ -1958,10 +1858,7 @@ declare module jsav {
      * @param options - options for the mouseenter event
      * @returns a JSAV graph object. Thus, this method can be chained.
      */
-    mouseenter(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavGraph;
+    mouseenter(handler: (event: any) => void, options?: { edge: boolean }): JsavGraph;
 
     /**
      * Adds a handler to be called when mouse leaves the graph.
@@ -1969,10 +1866,7 @@ declare module jsav {
      * @param options - options for the mouseleave event
      * @returns a JSAV graph object. Thus, this method can be chained.
      */
-    mouseleave(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavGraph;
+    mouseleave(handler: (event: any) => void, options?: { edge: boolean }): JsavGraph;
   }
 
   /**
@@ -2090,10 +1984,7 @@ declare module jsav {
      * @param options - options for the double-click
      * @returns a JSAV list object. Thus, this method can be chained.
      */
-    dblclick(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavList;
+    dblclick(handler: (event: any) => void, options?: { edge: boolean }): JsavList;
 
     /**
      * Adds a handler to be called when mouse is pressed down on the list.
@@ -2101,10 +1992,7 @@ declare module jsav {
      * @param options - options for the right-click
      * @returns a JSAV list object. Thus, this method can be chained.
      */
-    mousedown(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavList;
+    mousedown(handler: (event: any) => void, options?: { edge: boolean }): JsavList;
 
     /**
      * Adds a handler to be called when mouse is released on the list.
@@ -2112,10 +2000,7 @@ declare module jsav {
      * @param options - options for the mouseup
      * @returns a JSAV list object. Thus, this method can be chained.
      */
-    mouseup(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavList;
+    mouseup(handler: (event: any) => void, options?: { edge: boolean }): JsavList;
 
     /**
      * Adds a handler to be called when mouse is moved over the list.
@@ -2123,10 +2008,7 @@ declare module jsav {
      * @param options - options for the mousemove
      * @returns a JSAV list object. Thus, this method can be chained.
      */
-    mousemove(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavList;
+    mousemove(handler: (event: any) => void, options?: { edge: boolean }): JsavList;
 
     /**
      * Adds a handler to be called when mouse enters the list.
@@ -2134,10 +2016,7 @@ declare module jsav {
      * @param options - options for the mouseenter event
      * @returns a JSAV list object. Thus, this method can be chained.
      */
-    mouseenter(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavList;
+    mouseenter(handler: (event: any) => void, options?: { edge: boolean }): JsavList;
 
     /**
      * Adds a handler to be called when mouse leaves the list.
@@ -2145,10 +2024,7 @@ declare module jsav {
      * @param options - options for the mouseleave event
      * @returns a JSAV list object. Thus, this method can be chained.
      */
-    mouseleave(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavList;
+    mouseleave(handler: (event: any) => void, options?: { edge: boolean }): JsavList;
   }
 
   /**
@@ -2165,10 +2041,7 @@ declare module jsav {
      * @param node - the node to set as the next node
      * @param options - the options to set
      */
-    next(
-      node: JsavListNode | null,
-      options?: LinkListNextOptions
-    ): JsavListNode;
+    next(node: JsavListNode | null, options?: LinkListNextOptions): JsavListNode;
 
     /**
      * Returns the JSAV Edge object that points to the next item in the list.
@@ -2273,11 +2146,11 @@ declare module jsav {
      * @param options - the options to set
      */
     swap(
-      row1: number,
-      col1: number,
-      row2: number,
-      col2: number,
-      options?: JsavMatrixSwapOptions
+        row1: number,
+        col1: number,
+        row2: number,
+        col2: number,
+        options?: JsavMatrixSwapOptions
     ): void;
 
     /**
@@ -2286,16 +2159,9 @@ declare module jsav {
      */
     layout(options?: JsavMatrixLayoutOptions): void;
 
-    css(
-      cssPropertyName: string,
-      value?: string,
-      options?: { [index: string]: Primitive }
-    ): string;
+    css(cssPropertyName: string, value?: string, options?: { [index: string]: Primitive }): string;
 
-    css(
-      props: { [index: string]: Primitive },
-      options?: { [index: string]: Primitive }
-    ): void;
+    css(props: { [index: string]: Primitive }, options?: { [index: string]: Primitive }): void;
 
     /**
      * Returns the value of CSS property cssPropertyName for the element at the given indices.
@@ -2317,11 +2183,7 @@ declare module jsav {
      * @param css
      * @returns a JSAV array object. Thus, this method can be chained.
      */
-    css(
-      row: number,
-      col: number,
-      css: { [index: string]: Primitive }
-    ): JsavArray;
+    css(row: number, col: number, css: { [index: string]: Primitive }): JsavMatrix;
 
     addClass(className: string, options?: any): void;
 
@@ -2349,12 +2211,7 @@ declare module jsav {
      * @param className - the CSS class to remove
      * @param options - options for the remove
      */
-    removeClass(
-      row: number,
-      col: number,
-      className: string,
-      options?: any
-    ): void;
+    removeClass(row: number, col: number, className: string, options?: any): void;
 
     /**
      * Toggles the CSS class className to given indices and animates the changes.
@@ -2364,12 +2221,7 @@ declare module jsav {
      * @param className - the CSS class to toggle
      * @param options - options for the toggle
      */
-    toggleClass(
-      row: number,
-      col: number,
-      className: string,
-      options?: any
-    ): void;
+    toggleClass(row: number, col: number, className: string, options?: any): void;
 
     /**
      * Returns true if the array has the CSS class className.
@@ -2382,27 +2234,19 @@ declare module jsav {
 
     /**
      * Highlights the specified indices.
-     * Parameter indices can be a number, array, true, or function.
-     * When indices is true, then all elements of the array are highlighted.
-     * When indices is a function, then the function is called for each index in the array.
-     * The function should return true if the index should be highlighted, and false otherwise.
      * @param row - the row of the element to highlight
      * @param col - the column of the element to highlight
-     * @returns a JSAV array object. Thus, this method can be chained.
+     * @returns a JSAV matrix object. Thus, this method can be chained.
      */
-    highlight(row: number, col: number): JsavArray;
+    highlight(row: number, col: number): JsavMatrix;
 
     /**
-     * Unhighlights the specified indices.
-     * Parameter indices can be a number, array, true, or function.
-     * When indices is true, then all elements of the array are unhighlighted.
-     * When indices is a function, then the function is called for each index in the array.
-     * The function should return true if the index should be unhighlighted, and false otherwise.
+     * Removes the highlight from the given coordinates.
      * @param row - the row of the element to unhighlight
      * @param col - the column of the element to unhighlight
-     * @returns a JSAV array object. Thus, this method can be chained.
+     * @returns a JSAV matrix object. Thus, this method can be chained.
      */
-    unhighlight(row: number, col: number): JsavArray;
+    unhighlight(row: number, col: number): JsavMatrix;
 
     /**
      * Returns true or false depending on whether the element at index number is highlighted or not.
@@ -2416,8 +2260,9 @@ declare module jsav {
      * @param row - the row of the element to get or set
      * @param col - the column of the element to get or set
      * @param value - the value to set the array element to
+     * @returns the value of the array element at the given indices.
      */
-    value(row: number, col: number, value?: Primitive): any;
+    value(row: number, col: number, value?: Primitive): Primitive;
   }
 
   /**
@@ -2452,10 +2297,7 @@ declare module jsav {
      * @param newNode - the new root node
      * @param options - options for the root
      */
-    root(
-      newNode?: any | JsavTreeNode,
-      options?: { hide: boolean }
-    ): JsavTreeNode;
+    root(newNode?: any | JsavTreeNode, options?: { hide: boolean }): JsavTreeNode;
 
     /**
      * Creates a new node that can be added to this tree. “Subclasses” override this to create nodes suited
@@ -2498,10 +2340,7 @@ declare module jsav {
      * @param options - options for the click
      * @returns a JSAV tree object. Thus, this method can be chained.
      */
-    click(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavTreeBase;
+    click(handler: (event: any) => void, options?: { edge: boolean }): JsavTreeBase;
 
     /**
      * Adds a handler to be called when the tree is double-clicked.
@@ -2509,10 +2348,7 @@ declare module jsav {
      * @param options - options for the double-click
      * @returns a JSAV tree object. Thus, this method can be chained.
      */
-    dblclick(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavTreeBase;
+    dblclick(handler: (event: any) => void, options?: { edge: boolean }): JsavTreeBase;
 
     /**
      * Adds a handler to be called when mouse is pressed down on the tree.
@@ -2520,10 +2356,7 @@ declare module jsav {
      * @param options - options for the right-click
      * @returns a JSAV tree object. Thus, this method can be chained.
      */
-    mousedown(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavTreeBase;
+    mousedown(handler: (event: any) => void, options?: { edge: boolean }): JsavTreeBase;
 
     /**
      * Adds a handler to be called when mouse is released on the tree.
@@ -2531,10 +2364,7 @@ declare module jsav {
      * @param options - options for the mouseup
      * @returns a JSAV tree object. Thus, this method can be chained.
      */
-    mouseup(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavTreeBase;
+    mouseup(handler: (event: any) => void, options?: { edge: boolean }): JsavTreeBase;
 
     /**
      * Adds a handler to be called when mouse is moved over the tree.
@@ -2542,10 +2372,7 @@ declare module jsav {
      * @param options - options for the mousemove
      * @returns a JSAV tree object. Thus, this method can be chained.
      */
-    mousemove(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavTreeBase;
+    mousemove(handler: (event: any) => void, options?: { edge: boolean }): JsavTreeBase;
 
     /**
      * Adds a handler to be called when mouse enters the tree.
@@ -2553,10 +2380,7 @@ declare module jsav {
      * @param options - options for the mouseenter event
      * @returns a JSAV tree object. Thus, this method can be chained.
      */
-    mouseenter(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavTreeBase;
+    mouseenter(handler: (event: any) => void, options?: { edge: boolean }): JsavTreeBase;
 
     /**
      * Adds a handler to be called when mouse leaves the tree.
@@ -2564,10 +2388,7 @@ declare module jsav {
      * @param options - options for the mouseleave event
      * @returns a JSAV tree object. Thus, this method can be chained.
      */
-    mouseleave(
-      handler: (event: any) => void,
-      options?: { edge: boolean }
-    ): JsavTreeBase;
+    mouseleave(handler: (event: any) => void, options?: { edge: boolean }): JsavTreeBase;
 
     //TOTO chyba:
     //Similarly to arrays, you can also pass custom data to the handler.
@@ -2583,12 +2404,9 @@ declare module jsav {
   /**
    * Binary tree.
    */
-  // @ts-ignore - Because of binary tree node does not have child(),... methods
+    // @ts-ignore - Because of binary tree node does not have child(),... methods
   export interface JsavBinaryTree extends JsavTreeBase {
-    root(
-      newNode?: any | JsavBinaryTreeNode,
-      options?: { hide: boolean }
-    ): JsavBinaryTreeNode;
+    root(newNode?: any | JsavBinaryTreeNode, options?: { hide: boolean }): JsavBinaryTreeNode;
 
     newNode(value: any): JsavBinaryTreeNode;
   }
@@ -2642,11 +2460,7 @@ declare module jsav {
      * @param options - options for the new edge
      * @returns the node the child was added to.
      */
-    child(
-      pos: number,
-      node: JsavTreeNode,
-      options?: { edgeLabel: string }
-    ): JsavTreeNode;
+    child(pos: number, node: JsavTreeNode, options?: { edgeLabel: string }): JsavTreeNode;
 
     /**
      * Adds a child node to this node. The node can be a value or a node of correct type to the node.
@@ -2704,10 +2518,7 @@ declare module jsav {
      * @param newNode - the new left child node
      * @param options - options for the new edge
      */
-    left(
-      newNode?: any | JsavBinaryTreeNode,
-      options?: { edgeLabel: string }
-    ): JsavBinaryTreeNode;
+    left(newNode?: any | JsavBinaryTreeNode, options?: { edgeLabel: string }): JsavBinaryTreeNode;
 
     /**
      * Returns the right child or undefined if node has no right child.
@@ -2720,10 +2531,7 @@ declare module jsav {
      * @param newNode - the new right child node
      * @param options - options for the new edge
      */
-    right(
-      newNode?: any | JsavBinaryTreeNode,
-      options?: { edgeLabel: string }
-    ): JsavBinaryTreeNode;
+    right(newNode?: any | JsavBinaryTreeNode, options?: { edgeLabel: string }): JsavBinaryTreeNode;
 
     /**
      * Returns the edge that connects this node to its parent.
@@ -2811,10 +2619,7 @@ declare module jsav {
      * @param newTarget - the new target for the pointer
      * @param options - options for the pointer
      */
-    target(
-      newTarget?: JsavStructure,
-      options?: JsavPointerOptions
-    ): JsavStructure;
+    target(newTarget?: JsavStructure, options?: JsavPointerOptions): JsavStructure;
   }
 
   /**
@@ -2841,7 +2646,7 @@ declare module jsav {
      * can also be specified as percentages of width/height from top-left corner.
      * For example, 0 50% would match the default value top center.
      */
-    arrowAnchor?: string;
+    arrowAnchor?: JsavArrowAnchor;
   }
 
   /**
@@ -2895,9 +2700,9 @@ declare module jsav {
      * @param undoFunc - The function which will undo the action performed by func. (OPTIONAL IF func RETURNS THE UNDO ARGUMENTS)
      */
     getUndoableFunction(
-      jsav: JsavInstance,
-      func: Function,
-      undoFunc?: Function
+        jsav: JsavInstance,
+        func: Function,
+        undoFunc?: Function
     ): (...args: any[]) => any;
   }
 
@@ -2988,12 +2793,7 @@ declare module jsav {
      * @param count - the number of random numbers to generate
      * @param options - options for the random numbers
      */
-    numKeys(
-      min: number,
-      max: number,
-      count: number,
-      options?: RandomKeysOptions
-    ): number[];
+    numKeys(min: number, max: number, count: number, options?: RandomKeysOptions): number[];
 
     /**
      * Returns an array of num elements randomly picked from the given array arrayCollection.
@@ -3002,11 +2802,7 @@ declare module jsav {
      * @param count - the number of random elements to pick
      * @param options - options for the random elements
      */
-    sample(
-      array: any[],
-      count: number,
-      options?: RandomSampleOptions
-    ): number[];
+    sample(array: any[], count: number, options?: RandomSampleOptions): number[];
   }
 
   export interface RandomKeysOptions {
@@ -3102,13 +2898,12 @@ declare module jsav {
    */
   export type JsavTag = { [index: string]: number | number[] };
 
-  export type JsavPseudoCodeIndicies =
-    | number
-    | number[]
-    | Function
-    | JsavTag
-    | boolean;
+  export type JsavPseudoCodeIndicies = number | number[] | Function | JsavTag | boolean;
 
+  /**
+   * The pseudocode API in JSAV is intended for showing a
+   * static set of codelines that can be show/hidden and highlighted.
+   */
   export interface JsavPseudoCode extends JsavStructure {
     /**
      * Highlight the codelines at given indices.
@@ -3156,21 +2951,11 @@ declare module jsav {
      * @param indicies - the indices to apply the css to
      * @param css - the css to apply
      */
-    css(
-      indicies: JsavPseudoCodeIndicies,
-      css: { [index: string]: Primitive }
-    ): void;
+    css(indicies: JsavPseudoCodeIndicies, css: { [index: string]: Primitive }): void;
 
-    css(
-      cssPropertyName: string,
-      value?: string,
-      options?: { [index: string]: Primitive }
-    ): string;
+    css(cssPropertyName: string, value?: string, options?: { [index: string]: Primitive }): string;
 
-    css(
-      props: { [index: string]: Primitive },
-      options?: { [index: string]: Primitive }
-    ): void;
+    css(props: { [index: string]: Primitive }, options?: { [index: string]: Primitive }): void;
 
     /**
      * Sets the line at given index as the current line.
@@ -3189,11 +2974,7 @@ declare module jsav {
      * @param className - the class to add
      * @param options - the options to use
      */
-    addClass(
-      indicies: JsavPseudoCodeIndicies,
-      className: string,
-      options?: any
-    ): void;
+    addClass(indicies: JsavPseudoCodeIndicies, className: string, options?: any): void;
 
     /**
      * Removes the CSS class className from lines at given indices and animates the changes.
@@ -3202,11 +2983,7 @@ declare module jsav {
      * @param className - the class to remove
      * @param options - the options to use
      */
-    removeClass(
-      indicies: JsavPseudoCodeIndicies,
-      className: string,
-      options?: any
-    ): void;
+    removeClass(indicies: JsavPseudoCodeIndicies, className: string, options?: any): void;
 
     /**
      * Toggles the CSS class className on lines at given indices and animates the changes.
@@ -3215,11 +2992,7 @@ declare module jsav {
      * @param className - the class to toggle
      * @param options - the options to use
      */
-    toggleClass(
-      indicies: JsavPseudoCodeIndicies,
-      className: string,
-      options?: any
-    ): void;
+    toggleClass(indicies: JsavPseudoCodeIndicies, className: string, options?: any): void;
 
     /**
      * Return true/false based on if the line at given index has the CSS class className.
@@ -3238,12 +3011,29 @@ declare module jsav {
     hasClass(className: string): boolean;
   }
 
+  /**
+   * The exercise API is used to create interactive, automatically assessed exercises.
+   */
   export interface JsavExercise {
     /**
-     * Shows the grade of the student’s current solution.
+     * Shows the grade of the student’s current solution on alert.
      * The behaviour can be customized using the showGrade option when initializing the exercise.
      */
     showGrade(): void;
+
+    /**
+     * Grades the student’s solution.
+     * Behavior in a nutshell:
+     * 1. get the student's solution
+     * 2. get the model answer
+     * 3. rewind both
+     * 4. compare the states in the visualizations
+     * 5. scale the points (not implemented yet)
+     * 6. return result
+     * 7. show comparison of own and model side by side (not implemented yet)
+     * @param continuousMode -
+     */
+    grade(continuousMode?: boolean): JsavScore;
 
     /**
      * Resets the exercise.
@@ -3253,7 +3043,7 @@ declare module jsav {
     /**
      * Shows the model answer of the exercise.
      */
-    showModelAnswer(): void;
+    showModelanswer(): void;
 
     /**
      * Marks the current step in the student’s solution as a step used in grading.
@@ -3261,6 +3051,9 @@ declare module jsav {
     gradeableStep(): void;
   }
 
+  /**
+   * Interactive questions can be initialized with the question function of a JSAV instance.
+   */
   export interface JsavQuestion {
     /**
      * This adds an answer choice to question q.
@@ -3290,4 +3083,49 @@ declare module jsav {
      */
     show(): void;
   }
+
+  /**
+   * JSAV score object.
+   */
+  export interface JsavScore {
+    /**
+     * Total number of steps in the model solution.
+     */
+    total: number;
+
+    /**
+     * How many steps were undone in the continuous feedback mode.
+     */
+    undo: number;
+
+    /**
+     * How many steps were fixed in the continuous feedback mode.
+     */
+    fix: number;
+
+    /**
+     * The number of correct steps.
+     */
+    correct: number;
+
+    /**
+     * Number of steps in student solution.
+     */
+    student: number;
+  }
+
+  /**
+   * JSAV anchor types.
+   */
+  // prettier-ignore
+  export type JsavAnchor =
+      |   "left top"  |  "center top"   | "right top"
+      | "left center" | "center center" | "right center"
+      | "left bottom" | "center bottom" | "right bottom"
+      | "center";
+
+  /**
+   * JSAV arrow anchor types.
+   */
+  export type JsavArrowAnchor = JsavAnchor | string;
 }
