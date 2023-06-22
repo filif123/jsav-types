@@ -182,16 +182,36 @@ declare module jsav {
    * JSAV instance.
    */
   export interface JsavInstance {
+    /**
+     * This field is an object that contains all the JSAV data structures.
+     */
     ds: JsavDataStructure;
+
+    /**
+     * This field is an object that contains all the JSAV graphics primitives.
+     */
     g: JsavGraphics;
+
+    /**
+     * This field is an object that contains all the JSAV animations.
+     */
     effects: JsavEffects;
 
+    /**
+     * Translate function.
+     * @param key - the key to translate
+     */
     _translate: (key: string) => void;
 
     /**
      * Gets current speed of the AV.
      */
     SPEED: number;
+
+    /**
+     * Gets container element of the AV.
+     */
+    container: JQuery;
 
     /**
      * This is a method of the AV object. It creates a pointer that points to some JSAV object.
@@ -258,11 +278,7 @@ declare module jsav {
      * @param questionText - actual question shown to a student
      * @param options - ONLY for the question type TF.
      */
-    question(
-        qtype: "TF" | "MC" | "MS",
-        questionText: string,
-        options?: QuestionOptions
-    ): JsavQuestion;
+    question(qtype: "TF" | "MC" | "MS", questionText: string, options?: QuestionOptions): JsavQuestion;
 
     /**
      * AVs can log events on student actions using this function.
@@ -301,12 +317,12 @@ declare module jsav {
     backward(fun?: () => boolean): void;
 
     /**
-     * This method is used to start the slideshow.
+     * This method is used to go to the start of the slideshow.
      */
     begin(): void;
 
     /**
-     * This method is used to end the slideshow.
+     * This method is used to go to the end of the slideshow.
      */
     end(): void;
 
@@ -351,6 +367,11 @@ declare module jsav {
      * Clear the contents of the output message buffer.
      */
     clerumsg(): JsavInstance;
+
+    /**
+     * Clears the undo and redo stacks.
+     */
+    clearAnimation(options?: { undo?: boolean; redo?: boolean }): void;
   }
 
   export interface QuestionOptions {
@@ -515,7 +536,7 @@ declare module jsav {
      * Enables referring to lines with strings. The JavaScript object should map strings to either
      * line numbers or arrays of line numbers.
      *
-     * For instance if the tags are defined with the object {hello: 5}
+     * For instance if the tags are defined with the object `{hello: 5}`,
      * it means that .highlight("hello") will be equivalent to .highlight(5).
      */
     tags?: JsavTag;
@@ -619,12 +640,12 @@ declare module jsav {
 
   export interface JsavGShape {
     /**
-     * Make the shape visible. Essentially the same as calling .css({opacity: 1}).
+     * Make the shape visible. Essentially the same as calling `.css({opacity: 1})`.
      */
     show(): void;
 
     /**
-     * Make the shape invisible. Essentially the same as calling .css({opacity: 0}).
+     * Make the shape invisible. Essentially the same as calling `.css({opacity: 0})`.
      */
     hide(): void;
 
@@ -784,12 +805,7 @@ declare module jsav {
      * @param r - the radius of the circle
      * @param properties - the properties of the circle
      */
-    circle(
-        cx: number,
-        cy: number,
-        r: number,
-        properties?: { [index: string]: string | number | boolean }
-    ): JsavGCircle;
+    circle(cx: number, cy: number, r: number, properties?: { [index: string]: string | number | boolean }): JsavGCircle;
 
     /**
      * Gets or sets the center of the circle.
@@ -908,10 +924,7 @@ declare module jsav {
      * @param points - the points of the polyline
      * @param properties - the properties of the polyline
      */
-    polyline(
-        points: JsavGPoint[],
-        properties?: { [index: string]: string | number | boolean }
-    ): JsavGPolyline;
+    polyline(points: JsavGPoint[], properties?: { [index: string]: string | number | boolean }): JsavGPolyline;
 
     /**
      * Translates the given point in the (poly)line by the given amount of pixels.
@@ -945,10 +958,7 @@ declare module jsav {
      * @param points - the points of the polygon
      * @param properties - the properties of the polygon
      */
-    polygon(
-        points: JsavGPoint[],
-        properties?: { [index: string]: string | number | boolean }
-    ): JsavGPolygon;
+    polygon(points: JsavGPoint[], properties?: { [index: string]: string | number | boolean }): JsavGPolygon;
 
     /**
      * Translates the given point in the (poly)line by the given amount of pixels.
@@ -1272,7 +1282,14 @@ declare module jsav {
      * Recalculate the layout of the structure.
      * @param options - The options to set.
      */
-    layout(options?: any): void;
+    layout?(options?: any): void;
+
+    /**
+     * Returns or recalculates the bounding box of the structure.
+     * @param recalculate - Whether to recalculate the bounds.
+     * @param options - The options to set.
+     */
+    bounds(recalculate?: boolean, options?: any): any;
 
     /**
      * Returns the value of the CSS property cssPropertyName for this node.
@@ -1301,6 +1318,8 @@ declare module jsav {
      * @param handler - The handler function.
      */
     on(event: string, data: any[], handler: (event: Event) => void): void;
+
+    element: Element;
   }
 
   /**
@@ -1386,6 +1405,9 @@ declare module jsav {
    * JSAV array.
    */
   export interface JsavArray extends JsavStructure {
+    _values: any[];
+    _indices: JsavArrayIndex[];
+
     /**
      * Apply the given CSS properties to the specified indices.
      * Parameter indices can be a number, array, true, or function like for the highlight method.
@@ -1544,7 +1566,7 @@ declare module jsav {
      * like .css, .toggle/add/remove/hasClass, and .highlight.
      * @param index
      */
-    index(index: number): JsavIndex;
+    index(index: number): JsavArrayIndex;
 
     ///EVENTS
 
@@ -1609,7 +1631,21 @@ declare module jsav {
   /**
    * A JSAV array index object.
    */
-  export interface JsavIndex extends JsavNode {}
+  export interface JsavArrayIndex extends JsavNode {
+    /**
+     * Does nothing in the array index context.
+     * @deprecated
+     * @param options
+     */
+    show(options?: any): void;
+
+    /**
+     * Does nothing in the array index context.
+     * @deprecated
+     * @param options
+     */
+    hide(options?: any): void;
+  }
 
   /**
    * Options for the JSAV array swap() method.
@@ -1664,17 +1700,11 @@ declare module jsav {
     isHighlight(): boolean;
 
     /**
-     * Returns the label attached to this node.
-     * UNOFFICIAL: This is not in the JSAV documentation, but it is in the edited source code.
-     */
-    label(): string;
-
-    /**
-     * Sets the value of the label attached to this node.
+     * Gets or sets the value of the label attached to this node.
      * UNOFFICIAL: This is not in the JSAV documentation, but it is in the edited source code.
      * @param newLabel - the new label to set
      */
-    label(newLabel: string): string;
+    label(newLabel?: string): string;
   }
 
   /**
@@ -1718,6 +1748,12 @@ declare module jsav {
      * @param newWeight
      */
     weight(newWeight: number): number;
+
+    /**
+     * Recalculates the layout of this edge.
+     * @param options - options to set
+     */
+    layout(options?: any): string;
   }
 
   /**
@@ -1882,12 +1918,12 @@ declare module jsav {
      * Returns the Edge object connecting this node to the given node. Returns undefined if no such edge exists.
      * @param node - the node to get the edge to
      */
-    edgeTo(node: JsavGraphNode): JsavNode;
+    edgeTo(node: JsavGraphNode): JsavGraphNode;
 
     /**
      * Returns the Edge object connecting the given node to this node. Returns undefined if no such edge exists.
      */
-    edgeFrom(node: JsavGraphNode): JsavNode;
+    edgeFrom(node: JsavGraphNode): JsavGraphNode;
   }
 
   /**
@@ -2037,7 +2073,7 @@ declare module jsav {
     next(): JsavListNode;
 
     /**
-     * Sets the next node to be the passed node. The optional second argument options should be an object..
+     * Sets the next node to be the passed node. The optional second argument options should be an object.
      * @param node - the node to set as the next node
      * @param options - the options to set
      */
@@ -2145,13 +2181,7 @@ declare module jsav {
      * @param col2 - the column of the second value
      * @param options - the options to set
      */
-    swap(
-        row1: number,
-        col1: number,
-        row2: number,
-        col2: number,
-        options?: JsavMatrixSwapOptions
-    ): void;
+    swap(row1: number, col1: number, row2: number, col2: number, options?: JsavMatrixSwapOptions): void;
 
     /**
      * Recalculates the layout of the matrix.
@@ -2317,7 +2347,7 @@ declare module jsav {
      * That means that after changing the tree, you should call this manually at the end of each animation step.
      * This function exists for all trees.
      */
-    layout(): void;
+    layout(options?: any): void;
 
     /**
      * Make the tree invisible. This function exists for all trees.
@@ -2699,11 +2729,7 @@ declare module jsav {
      * it should return the undo arguments in an array.
      * @param undoFunc - The function which will undo the action performed by func. (OPTIONAL IF func RETURNS THE UNDO ARGUMENTS)
      */
-    getUndoableFunction(
-        jsav: JsavInstance,
-        func: Function,
-        undoFunc?: Function
-    ): (...args: any[]) => any;
+    getUndoableFunction(jsav: JsavInstance, func: Function, undoFunc?: Function): (...args: any[]) => any;
   }
 
   export interface JsavDialog {
@@ -2964,8 +2990,9 @@ declare module jsav {
      * that mark will be removed. This will help in creating a visual debugger-like code stepping
      * functionality in visualizations. You can clear the current line selection with index value 0.
      * @param index - the index to set as current line
+     * @param options - the options to use
      */
-    setCurrentLine(index: number): void;
+    setCurrentLine(index: number, options?: any): void;
 
     /**
      * Adds the CSS class className to lines at given indices and animates the changes.

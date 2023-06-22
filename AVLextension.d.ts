@@ -1,23 +1,19 @@
+/// <reference path="JSAV.d.ts" />
 // noinspection JSUnusedGlobalSymbols
 
-declare module jsav {
-    export interface JsavDataStructure {
-        /**
-         * Creates a new double linked list with the given options.
-         * @param options
-         */
-        dlist(options?: JsavListOptions): JsavDoubleLinkList;
-    }
+/** Support for AVL Trees
+ * Written by Kasper Hellström
+ * https://github.com/OpenDSA/OpenDSA/blob/master/DataStructures/AVLextension.js
+ */
+declare module jsavAvlExtension {
 
-    export interface JsavDoubleLinkList extends JsavList {
-        //TODO
-    }
+    import Primitive = jsav.Primitive;
 
-    export interface JsavBinaryTree {
+    export interface JsavBinaryTree extends jsav.JsavBinaryTree {
         /**
          * Inserts a value or array of values into the binary trees.
          * By default duplicates go to the left side.
-         * This can be changed with option: {toRight: true}.
+         * This can be changed with option: `{toRight: true}`.
          * @param value
          * @param options
          * @returns the node if only a value was inserted, and the tree if an array was inserted
@@ -37,7 +33,7 @@ declare module jsav {
         addEmptyNodes(): void;
     }
 
-    export interface JsavBinaryTreeNode {
+    export interface JsavBinaryTreeNode extends jsav.JsavBinaryTreeNode {
         /**
          * Adds empty nodes to all the nodes in the tree.
          */
@@ -68,25 +64,5 @@ declare module jsav {
          * Preforms right-left rotation on the node.
          */
         rotateRL(): false;
-    }
-
-    interface JsavListNode {
-        /**
-         * Returns the prev node in the linked list. If no next, returns null.
-         */
-        prev(): JsavListNode;
-
-        /**
-         * Sets the prev node to be the passed node.
-         * The optional second argument options should be an object...
-         * @param node - the node to set as the prev node
-         * @param options - the options to set
-         */
-        prev(node: JsavListNode | null, options?: LinkListNextOptions): JsavListNode;
-
-        /**
-         * Returns the JSAV Edge object that points to the prev item in the list.
-         */
-        edgeToPrev(): JsavEdge;
     }
 }
