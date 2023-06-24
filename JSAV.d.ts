@@ -154,7 +154,7 @@ declare module jsav {
      * A boolean specifying whether a button should be displayed that will allow the user to
      * turn on/off narration for the slideshow.
      *
-     * Defaults to false.
+     * Default is `false`.
      */
     enabled?: boolean;
 
@@ -1469,7 +1469,7 @@ declare module jsav {
     unhighlight(index: JsavIndiciesSelector): JsavArray;
 
     /**
-     * Returns true or false depending on whether the element at index number is highlighted or not.
+     * Returns `true` or `false` depending on whether the element at index number is highlighted or not.
      * @param index - The index to check.
      */
     isHighlight(index: number): boolean;
@@ -1624,7 +1624,14 @@ declare module jsav {
    * Options for the JSAV array constructor.
    */
   export interface JsavArrayOptions extends JsavOptions {
+    /**
+     * The layout of the array. Can be "vertical", "horizontal", or "bar".
+     */
     layout?: "horizontal" | "vertical" | "bar";
+
+    /**
+     * Indicates whether the array is indexed or not. Default is `false`.
+     **/
     indexed?: boolean;
   }
 
@@ -1634,14 +1641,14 @@ declare module jsav {
   export interface JsavArrayIndex extends JsavNode {
     /**
      * Does nothing in the array index context.
-     * @deprecated
+     * @deprecated This method does nothing in the array index context.
      * @param options
      */
     show(options?: any): void;
 
     /**
      * Does nothing in the array index context.
-     * @deprecated
+     * @deprecated This method does nothing in the array index context.
      * @param options
      */
     hide(options?: any): void;
@@ -1659,7 +1666,7 @@ declare module jsav {
     arrow?: boolean;
 
     /**
-     *  A boolean specifying whether to swap the classes of the array indices as well. Defaults to false.
+     *  A boolean specifying whether to swap the classes of the array indices as well. Default is `false`.
      */
     swapClasses?: boolean;
 
@@ -1701,7 +1708,7 @@ declare module jsav {
 
     /**
      * Gets or sets the value of the label attached to this node.
-     * UNOFFICIAL: This is not in the JSAV documentation, but it is in the edited source code.
+     * @deprecated DO NOT USE because it is not in the original JSAV.js file.
      * @param newLabel - the new label to set
      */
     label(newLabel?: string): string;
@@ -2279,7 +2286,7 @@ declare module jsav {
     unhighlight(row: number, col: number): JsavMatrix;
 
     /**
-     * Returns true or false depending on whether the element at index number is highlighted or not.
+     * Returns `true` or `false` depending on whether the element at index number is highlighted or not.
      * @param row - the row of the element to check
      * @param col - the column of the element to check
      */
@@ -2322,7 +2329,7 @@ declare module jsav {
     /**
      * Returns the root of this tree. If the optional node parameter is given, the root of the tree is set.
      * This function exists for all trees. If node is a node the old root is replaced.
-     * The replaced root will also be hidden, unless option hide is set to false.
+     * The replaced root will also be hidden, unless option hide is set to `false`.
      * If node is a value the old value will be replaced in the root.
      * @param newNode - the new root node
      * @param options - options for the root
@@ -2351,14 +2358,14 @@ declare module jsav {
 
     /**
      * Make the tree invisible. This function exists for all trees.
-     * It recursively hides all the nodes and edges in the tree as well unless option recursive is set to false.
+     * It recursively hides all the nodes and edges in the tree as well unless option recursive is set to `false`.
      * @param options
      */
     hide(options?: { recursive: boolean }): void;
 
     /**
      * Make the tree visible. This function exists for all trees.
-     * It recursively shows all the nodes and edges in the tree as well unless option recursive is set to false.
+     * It recursively shows all the nodes and edges in the tree as well unless option recursive is set to `false`.
      */
     show(options?: { recursive: boolean }): void;
 
@@ -2420,8 +2427,8 @@ declare module jsav {
      */
     mouseleave(handler: (event: any) => void, options?: { edge: boolean }): JsavTreeBase;
 
-    //TOTO chyba:
-    //Similarly to arrays, you can also pass custom data to the handler.
+    // TODO missing:
+    // Similarly to arrays, you can also pass custom data to the handler.
     // For example, bt.click({"color": "blue"}, JSAV.utils._helpers.css);
     // would call the css function with the given parameter.
   }
@@ -2438,7 +2445,7 @@ declare module jsav {
   export interface JsavBinaryTree extends JsavTreeBase {
     root(newNode?: any | JsavBinaryTreeNode, options?: { hide: boolean }): JsavBinaryTreeNode;
 
-    newNode(value: any): JsavBinaryTreeNode;
+    newNode(value: Primitive): JsavBinaryTreeNode;
   }
 
   /**
@@ -2502,21 +2509,21 @@ declare module jsav {
 
     /**
      * Removes the node from its parent.
-     * The node and its child nodes are hidden recursively, unless option hide is set to false.
+     * The node and its child nodes are hidden recursively, unless option hide is set to `false`.
      * @param options
      */
     remove(options?: { hide: boolean }): void;
 
     /**
      * Hides the node and the edge connecting it to the parent node.
-     * Also recursively hides all child nodes unless option recursive is set to false.
+     * Also recursively hides all child nodes unless option recursive is set to `false`.
      * @param options - options for the hide
      */
     hide(options?: { recursive: boolean }): void;
 
     /**
      * Shows the node and the edge connecting it to the parent node.
-     * Also recursively shows all child nodes unless option recursive false is set to false.
+     * Also recursively shows all child nodes unless option recursive `false` is set to `false`.
      *
      * Note, that if the tree is not visible, showing nodes will not have any effect until
      * the tree is set visible by calling show.
@@ -2711,7 +2718,7 @@ declare module jsav {
      * @param languageJSON - a JavaScript object or a URL to a JSON file
      * @param language - the selected language
      */
-    getInterpreter(languageJSON: any | string, language: string): Function;
+    getInterpreter(languageJSON: object | string, language: string): Function;
 
     /**
      * Returns a string where the labels (surrounded by curly brackets) in the string have been replaced
@@ -2833,7 +2840,7 @@ declare module jsav {
 
   export interface RandomKeysOptions {
     /**
-     * If set to true, the array will be sorted. Default is false.
+     * If set to true, the array will be sorted. Default is `false`.
      */
     sorted?: boolean;
 
@@ -2845,9 +2852,9 @@ declare module jsav {
     sortFunc?: (a: number, b: number) => number;
 
     /**
-     * A function that takes the random array as a parameter and returns true/false indicating whether it
+     * A function that takes the random array as a parameter and returns `true`/`false` indicating whether it
      * fullfills some requirements.
-     * If it returns false, a new random array is generated. This is typically used with exercises to
+     * If it returns `false`, a new random array is generated. This is typically used with exercises to
      * randomize and test the initial data.
      * @param array - the random array
      */
@@ -2862,9 +2869,9 @@ declare module jsav {
 
   export interface RandomSampleOptions {
     /**
-     * A function that takes the random array as a parameter and returns true/false indicating whether it
+     * A function that takes the random array as a parameter and returns `true`/`false` indicating whether it
      * fullfills some requirements.
-     * If it returns false, a new random array is generated. This is typically used with exercises to
+     * If it returns `false`, a new random array is generated. This is typically used with exercises to
      * randomize and test the initial data.
      * @param array - the random array
      */
@@ -2902,7 +2909,7 @@ declare module jsav {
   }
 
   /**
-   * Variables can be used to present undo/redo capable variables.
+   * Variables that can be used to present undo/redo capable variables.
    */
   export interface JsavVariable extends JsavStructure {
     /**
@@ -2924,6 +2931,9 @@ declare module jsav {
    */
   export type JsavTag = { [index: string]: number | number[] };
 
+  /**
+   * The indices for the pseudo code lines.
+   */
   export type JsavPseudoCodeIndicies = number | number[] | Function | JsavTag | boolean;
 
   /**
@@ -3022,7 +3032,7 @@ declare module jsav {
     toggleClass(indicies: JsavPseudoCodeIndicies, className: string, options?: any): void;
 
     /**
-     * Return true/false based on if the line at given index has the CSS class className.
+     * Return `true`/`false` based on if the line at given index has the CSS class className.
      * Parameter index should be a number or a tag to a number.
      * @param index - the index to check
      * @param className - the class to check for
@@ -3086,7 +3096,7 @@ declare module jsav {
      * This adds an answer choice to question q.
      * Parameter label is the label shown for this answer choice.
      * The only option at the moment is correct which indicates the correctness of this choice.
-     * Default value for it is false.
+     * Default value for it is `false`.
      *
      * Note, that this method does nothing for the true-false type question.
      * @param label
@@ -3146,7 +3156,7 @@ declare module jsav {
    */
   // prettier-ignore
   export type JsavAnchor =
-      |   "left top"  |  "center top"   | "right top"
+      | "left top"    | "center top"    | "right top"
       | "left center" | "center center" | "right center"
       | "left bottom" | "center bottom" | "right bottom"
       | "center";

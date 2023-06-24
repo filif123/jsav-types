@@ -1,24 +1,22 @@
-/// <reference path="JSAV.d.ts" />
-// noinspection JSUnusedGlobalSymbols
+/// <reference path="../JSAV.d.ts" />
 
-/** Doubly linked list support
+/**
+ * Doubly linked list support.
  * Written by Jun Yang
  * https://github.com/OpenDSA/OpenDSA/blob/master/DataStructures/DoubleLinkList.js
- */
+ **/
 export module jsavDoubleLinkList {
-    import JsavList = jsav.JsavList;
-    import LinkListNextOptions = jsav.LinkListNextOptions;
-    import JsavEdge = jsav.JsavEdge;
-
+    
     export interface JsavDataStructure extends jsav.JsavDataStructure {
         /**
          * Creates a new double linked list with the given options.
-         * @param options
+         * @param options - options for the list
+         * @returns the new list
          */
         dlist(options?: jsav.JsavListOptions): JsavDoubleLinkList;
     }
 
-    export type JsavDoubleLinkList = JsavList;
+    export type JsavDoubleLinkList = jsav.JsavList;
 
     interface JsavListNode extends jsav.JsavListNode {
         /**
@@ -32,11 +30,11 @@ export module jsavDoubleLinkList {
          * @param node - the node to set as the prev node
          * @param options - the options to set
          */
-        prev(node: JsavListNode | null, options?: LinkListNextOptions): JsavListNode;
+        prev(node: JsavListNode | null, options?: jsav.LinkListNextOptions): JsavListNode;
 
         /**
          * Returns the JSAV Edge object that points to the prev item in the list.
          */
-        edgeToPrev(): JsavEdge;
+        edgeToPrev(): jsav.JsavEdge;
     }
 }
