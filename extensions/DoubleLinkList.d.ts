@@ -5,7 +5,7 @@
  * Written by Jun Yang
  * https://github.com/OpenDSA/OpenDSA/blob/master/DataStructures/DoubleLinkList.js
  **/
-export module jsavDoubleLinkList {
+declare module jsavDoubleLinkList {
     
     export interface JsavDataStructure extends jsav.JsavDataStructure {
         /**
