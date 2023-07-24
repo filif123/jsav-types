@@ -1705,13 +1705,6 @@ declare module jsav {
      * Returns true if this node is highlighted.
      */
     isHighlight(): boolean;
-
-    /**
-     * Gets or sets the value of the label attached to this node.
-     * @deprecated DO NOT USE because it is not in the original JSAV.js file.
-     * @param newLabel - the new label to set
-     */
-    label(newLabel?: string): string;
   }
 
   /**
