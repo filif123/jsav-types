@@ -19,7 +19,7 @@ declare module jsav {
      * @param element - The element to use as the container for the JSAV instance.
      * @param options - Options for the JSAV instance.
      */
-    new (element: string | HTMLElement, options?: JsavInstanceOptions): JsavInstance;
+    new (element: string | HTMLElement | JQuery, options?: JsavInstanceOptions): JsavInstance;
   }
 
   export type JsavTypes = {

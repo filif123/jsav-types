@@ -1,6 +1,6 @@
 {
   "name": "jsav-types",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "TypeScript definitions for JSAV library",
   "types": "index.d.ts",
   "main": "",
