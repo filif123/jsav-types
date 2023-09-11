@@ -1846,6 +1846,19 @@ declare module jsav {
      */
     layout(): void;
 
+    /**
+     * Creates and returns a deep copy of the current JsavGraph structure.
+     * @return {JsavGraph} A new JsavGraph structure that is an identical copy of the current one.
+     */
+    clone(): JsavGraph;
+
+    /**
+     * Creates a deep copy of the given JsavGraph structure with the specified options.
+     * @param {JsavGraphOptions} options - The options to apply to the cloned JsavGraph structure.
+     * @return {JsavGraph} - A deep copy of the JsavGraph structure with the specified options.
+     */
+    clone(options: JsavGraphOptions): JsavGraph;
+
     /// EVENTS
 
     /**
