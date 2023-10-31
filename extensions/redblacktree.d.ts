@@ -62,13 +62,13 @@ declare module jsavRedBlackTree {
          * Returns the grandpa of the node if it exists.
          * @returns the grandparent of the node.
          **/
-        grandparent(): JsavRedBlackTreeNode;
+        grandparent(): JsavRedBlackTreeNode | undefined;
 
         /**
          * Returns the uncle of the node if it exists.
          * @returns the uncle of the node.
          **/
-        uncle(): JsavRedBlackTreeNode;
+        uncle(): JsavRedBlackTreeNode | undefined;
 
         /**
          * Changes the colors of the nodes in the tree and performs necessary rotations.
@@ -80,12 +80,12 @@ declare module jsavRedBlackTree {
         /**
          * Performs the first case of the repair.
          **/ 
-        insert_case1(): void;
+        insert_case1(): false | void;
         
         /**
          * Performs the second case of the repair.
          **/ 
-        insert_case2(): void;
+        insert_case2(): false | void;
 
         /**
          * Performs the third case of the repair.
