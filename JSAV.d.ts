@@ -96,6 +96,12 @@ declare module jsav {
   export type JsavDataStructures = {
     Node: JsavNode;
     Edge: JsavEdge;
+    AVArray: JsavArray;
+    JSAVDataStructure: JsavDataStructure;
+    ArrayIndex: JsavArrayIndex;
+    Matrix: JsavMatrix;
+    List: JsavList;
+    ListNode: JsavListNode;
   };
 
   /**
@@ -2864,6 +2870,14 @@ declare module jsav {
      * @param undoFunc - The function which will undo the action performed by func. (OPTIONAL IF func RETURNS THE UNDO ARGUMENTS)
      */
     getUndoableFunction(jsav: JsavInstance, func: Function, undoFunc?: Function): (...args: any[]) => any;
+
+    /**
+     * Makes constructor inherit superConstructor 
+     * from Golimojo: http://www.golimojo.com/etc/js-subclass.html
+     * @param constructor - the constructor
+     * @param superConstructor - the super constructor to extend
+     */
+    extend(constructor: Function, superConstructor: Function): void;
   }
 
   export interface JsavDialog {
