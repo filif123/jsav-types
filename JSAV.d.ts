@@ -490,6 +490,11 @@ declare module jsav {
     fixmode?: "undo" | "fix" | "none";
 
     /**
+     * The grader function is used to compare the model solution to the student’s solution.
+     */
+    grader?: "default" | "finder" | "finalStep" | Function
+
+    /**
      * The settings dialog will not, by default, allow student to change the feedback mode.
      * Setting this option to true enables this choice.
      */
