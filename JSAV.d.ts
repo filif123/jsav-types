@@ -1327,7 +1327,7 @@ declare module jsav {
   /**
    * Base class for all JSAV structures.
    */
-  export interface JsavStructure {
+  export interface JsavStructure extends Function {
     /**
      * Removes the DOM element of this structure from the document.
      * This is useful, for example, in re-initializing exercises when
