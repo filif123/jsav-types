@@ -9,7 +9,24 @@ declare module jsav {
      * Utility functions for JSAV.
      */
     utils: JsavUtils;
+    
+    /**
+     * The JSAV types for extending JSAV to exposing types.
+     */
     _types: JsavTypes;
+    
+    /**
+     * The JSAV utility functions for extending JSAV.
+     */
+    ext: JsavExt;
+
+    /**
+     * This function can be used to "decorate" effects to be applied when moving forward in the animation.
+     * @param effect - the effect to apply
+     * @param undo - the undo effect
+     * @returns returns a function that can be used to provide function calls that are applied later when viewing the visualization
+     */
+    anim(effect: Function, undo: Function): Function;
 
     /**
      * Creates a new JSAV instance.
@@ -21,9 +38,59 @@ declare module jsav {
      */
     new (element: string | HTMLElement | JQuery, options?: JsavInstanceOptions): JsavInstance;
   }
+  
+  export interface JsavExt {
+    SPEED: number;
+    begin(): void;
+    end(): void;
+    forward(): void;
+    backward(): void;
+    totalSteps(): number;
+    currentStep(): number;
+    animInfo(): { steps: number; effects: number };
+    step(): void;
+    clearAnimation(options?: { undo?: boolean; redo?: boolean }): void;
+    displayInit(): void;
+    jumpToStep(step: number): void;
+    stepOption(name: string, value: any): void;
+    recorded(): void;
+    isAnimating(): boolean;
+    _shouldAnimate(): boolean;
+    disableControls(): void;
+    enableControls(): void;
+    logEvent(eventData: any): void;
+    umsg(msg: string, options?: MessageOptions): void;
+    clerumsg(): void;
+    textToSpeech(speechText: string, options: JsavTextToSpeechOptions): void;
+    effects: JsavEffects;
+    g: JsavGraphicsFunctions;
+    label(msg: string, options?: JsavLabelOptions): JsavLabel;
+    ds: JsavDataStructure;
+    variable(value: JsavVarType, options: VariableOptions): JsavVariable;
+    pointer(name: string, target?: JsavStructure, options?: JsavPointerOptions): JsavPointer;
+    code(codelines: string | string[], options?: PseudoCodeOptions): JsavPseudoCode;
+    question(qtype: "TF" | "MC" | "MS", questionText: string, options?: QuestionOptions): JsavQuestion;
+    resetQuestionAnswers(): void;
+    exercise(modelSolution: Function, reset: Function, options: ExerciseOptions): JsavExercise;
+  }
+  
+  export interface JsavTextToSpeechOptions {
+    overrideReplacements: any[];
+    replacements: any[];
+    appendReplacements: any[];
+    // Default: "en"
+    lang: string;
+  }
 
   export type JsavTypes = {
     ds: JsavDataStructures;
+    g: JsavGraphicsTypes;
+    JSAVObject: JsavObject;
+    Label: JsavLabel;
+    Variable: JsavVariable;
+    Pointer: JsavPointer;
+    Code: JsavPseudoCode;
+    Exercise: JsavExercise;
   };
 
   export type JsavDataStructures = {
@@ -414,7 +481,7 @@ declare module jsav {
      * Possible values are undo and fix.
      * The default is undo.
      */
-    fixmode?: "undo" | "fix";
+    fixmode?: "undo" | "fix" | "none";
 
     /**
      * The settings dialog will not, by default, allow student to change the feedback mode.
@@ -608,6 +675,29 @@ declare module jsav {
      * By default, the type is decided based on the type of the initial value.
      */
     type?: "boolean" | "number" | "string";
+  }
+  
+  export interface JsavGraphicsFunctions {
+    circle(cx: number, cy: number, r: number, properties?: { [index: string]: string | number | boolean }): JsavGCircle;
+    rect(x: number, y: number, width: number, height: number, properties?: { [index: string]: string | number | boolean }): JsavGRect;
+    line(x1: number, y1: number, x2: number, y2: number, properties?: { [index: string]: string | number | boolean }): JsavGLine;
+    ellipse(cx: number, cy: number, rx: number, ry: number, properties?: { [index: string]: string | number | boolean }): JsavGEllipse;
+    polyline(points: number[], properties?: { [index: string]: string | number | boolean }): JsavGPolyline;
+    polygon(points: number[], properties?: { [index: string]: string | number | boolean }): JsavGPolygon;
+    path(pathString: string, properties?: { [index: string]: string | number | boolean }): JsavGPath;
+    set(properties?: { [index: string]: string | number | boolean }): JsavGSet;
+  }
+  
+  export interface JsavGraphicsTypes {
+    JSAVGraphical: JsavGShape;
+    Circle: JsavGCircle;
+    Rect: JsavGRect;
+    Ellipse: JsavGEllipse;
+    Line: JsavGLine;
+    Polygon: JsavGPolygon;
+    Polyline: JsavGPolyline;
+    Path: JsavGPath;
+    Set: JsavGSet;
   }
 
   /**
@@ -984,6 +1074,14 @@ declare module jsav {
   }
 
   export type JsavGPoint = [number, number];
+  export interface JsavGSet extends JsavGShape {
+    /**
+     * Adds a new entry to the set, which can be used to combine and then manipulate multiple
+     * graphical primitives at the same time.
+     * @param obj - the graphical primitive to add to the set
+     */
+    push(obj: JsavGShape): void;
+  }
 
   export interface JsavGPath extends JsavGShape {
     /**
@@ -1203,6 +1301,21 @@ declare module jsav {
      * @param options - the options for the binary tree
      */
     binarytree(options?: JsavTreeOptions): JsavBinaryTree;
+  }
+  
+  export interface JsavObject {
+    id(newId?: string): string;
+    bounds(recalculate?: boolean, options?: any): any;
+    position(): { left: number; top: number };
+    isVisible(): boolean;
+    clear(): void;
+    _animateTranslate(dx: number, dy: number, options?: any): void;
+    translate(dx: number, dy: number, options?: any): void;
+    translateX(dx: number, options?: any): void;
+    translateY(dy: number, options?: any): void;
+    moveTo(newLeft: number, newTop: number, options?: any): void;
+    _registerMoveListener(listener: (dx: number, dy: number) => void): void;
+    _unregisterMoveListener(listener: (dx: number, dy: number) => void): void;
   }
 
   /**
@@ -1711,6 +1824,14 @@ declare module jsav {
    * JSAV Edge structure.
    */
   export interface JsavEdge extends JsavStructure {
+
+    /**
+     * Creates a new edge from start to end.
+     * @param jsav - the JSAV instance
+     * @param start - the start node of the edge
+     * @param end - the end node of the edge
+     * @param options - options for the edge
+     */
     new (jsav: JsavInstance, start?: JsavNode, end?: JsavNode, options?: JsavEdgeOptions): JsavEdge;
 
     /**
@@ -2964,8 +3085,14 @@ declare module jsav {
      */
     unhighlight(indicies: JsavPseudoCodeIndicies): void;
 
+    /**
+     * Show the codelines.
+     */
     show(): void;
-
+    
+    /**
+     * Hide the codelines.
+     */
     hide(): void;
 
     /**
@@ -3059,6 +3186,32 @@ declare module jsav {
    */
   export interface JsavExercise {
     /**
+     * The exercise options.
+     */
+    options: ExerciseOptions;
+
+    /**
+     * The JSAV instance for the exercise.
+     */
+    jsav: JsavInstance;
+
+    /**
+     * The model answer for the exercise.
+     */
+    score: JsavScore;
+    
+    /**
+     * Updates the score of the exercise in the UI.
+     */
+    _updateScore(): void;
+
+    /**
+     * Initializes the model answer and structures for the exercise.
+     * @param returnToStep - the step to return to
+     */
+    modelanswer(returnToStep?: number): void;
+    
+    /**
      * Shows the grade of the student’s current solution on alert.
      * The behaviour can be customized using the showGrade option when initializing the exercise.
      */
@@ -3074,7 +3227,7 @@ declare module jsav {
      * 5. scale the points (not implemented yet)
      * 6. return result
      * 7. show comparison of own and model side by side (not implemented yet)
-     * @param continuousMode -
+     * @param continuousMode - if true, the grading is done in continuous mode.
      */
     grade(continuousMode?: boolean): JsavScore;
 
@@ -3092,6 +3245,21 @@ declare module jsav {
      * Marks the current step in the student’s solution as a step used in grading.
      */
     gradeableStep(): void;
+
+    /**
+     * Undo the last step in the student’s solution (if excercise is in continuous undo mode).
+     */
+    undo(): void;
+
+    /**
+     * Fix the last step in the student’s solution (if excercise is in continuous fix mode).
+     */
+    fix(): void;
+
+    /**
+     * Generates a JSON string representation of the states of the exercise.
+     */
+    _jsondump(): any;
   }
 
   /**
