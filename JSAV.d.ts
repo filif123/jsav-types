@@ -102,6 +102,12 @@ declare module jsav {
     Matrix: JsavMatrix;
     List: JsavList;
     ListNode: JsavListNode;
+    Tree: JsavTree;
+    TreeNode: JsavTreeNode;
+    BinaryTree: JsavBinaryTree;
+    BinaryTreeNode: JsavBinaryTreeNode;
+    Graph: JsavGraph;
+    GraphNode: JsavGraphNode;
   };
 
   /**
@@ -1312,6 +1318,12 @@ declare module jsav {
      * @param options - the options for the binary tree
      */
     binarytree(options?: JsavTreeOptions): JsavBinaryTree;
+
+    /**
+     * Creates a new edge.
+     * @param options
+     */
+    edge(options?: JsavEdgeOptions): JsavEdge;
   }
   
   export interface JsavObject {
@@ -1814,6 +1826,14 @@ declare module jsav {
     value(newValue?: Primitive): Primitive;
 
     /**
+     * Returns the label attached to this node.
+     * If the optional newLabel parameter is given, the label is set to the given value.
+     * @param newLabel - the new label to set
+     * @param options - options for the label
+     */
+    label(newLabel?: string, options?: JsavLabelOptions): string;
+
+    /**
      * Highlights this node.
      * @returns a JSAV node object. Thus, this method can be chained.
      */
@@ -2089,13 +2109,13 @@ declare module jsav {
      * Adds the given value or node as the first item in the list. Returns the list, so calls can be chained.
      * @param value - the value to add to the list
      */
-    addFirst(value: any | JsavListNode): JsavListNode;
+    addFirst(value: any | JsavListNode): JsavList;
 
     /**
      * Adds the given value or node as the last item in the list. Returns the list, so calls can be chained.
      * @param value - the value to add to the list
      */
-    addLast(value: any | JsavListNode): JsavListNode;
+    addLast(value: any | JsavListNode): JsavList;
 
     /**
      * Adds the given value or node to be the indexth item in the list.
@@ -2103,7 +2123,7 @@ declare module jsav {
      * @param index - the index to add the value to
      * @param value - the value to add to the list
      */
-    add(index: number, value: any | JsavListNode): JsavListNode;
+    add(index: number, value: any | JsavListNode): JsavList;
 
     /**
      * Returns the node at index. First item has index 0. If no such index exists, returns undefined.
@@ -2823,12 +2843,48 @@ declare module jsav {
      */
     arrowAnchor?: JsavArrowAnchor;
   }
+  
+  export interface JsavIterable<T> {
+    /**
+     * Returns the next value in the iterable.
+     */
+    next(): T;
+
+    /**
+     * Returns true if there are more values in the iterable.
+     */
+    hasNext(): boolean;
+
+    /**
+     * Resets the iterable so that the next call to next() will return the first value.
+     */
+    reset(): void;
+  }
 
   /**
    * Utility functions.
    */
   export interface JsavUtils {
     rand: JsavRandom;
+    _helpers: JsavHelpers;
+
+    /**
+     * Returns a random unique identifier.
+     */
+    createUUID(): string;
+
+    /**
+     * Returns an iterable version of the passed array that has functions .next() and
+     * .hasNext(). Note, that the array is a clone of the original array!
+     * @param value - the value to make iterable
+     */
+    iterable<T>(value: T[]): JsavIterable<T>;
+
+    /**
+     * Returns true if the passed object is a graphical primitive, false otherwise.
+     * @param obj - the object to check
+     */
+    isGraphicalPrimitive(obj: any): boolean;
 
     /**
      * Returns an object containing all query parameters given for the HTML page.
@@ -2847,6 +2903,13 @@ declare module jsav {
      * Returns an object with function close() that can be used to close the dialog.
      */
     dialog(html: HTMLElement, options?: DialogOptions): JsavDialog;
+
+    /**
+     * Returns converted value of the given type.
+     * @param value - the value to convert
+     * @param valType - the type to convert to
+     */
+    value2type(value: any, valType: string): any;
 
     /**
      * Returns an interpreter function which translates tags into strings or other values specified
@@ -2883,6 +2946,21 @@ declare module jsav {
      * @param superConstructor - the super constructor to extend
      */
     extend(constructor: Function, superConstructor: Function): void;
+  }
+  
+  export interface JsavHelpers {
+    /**
+     * Sets the CSS classes of the given element to the given classes.
+     * @param element - the element to set the classes to
+     * @param classes - the classes to set
+     */
+    setElementClasses(element: HTMLElement, classes: string[]): void;
+
+    /**
+     * Returns the CSS classes of the given element.
+     * @param element - the element to get the classes from
+     */
+    elementClasses(element: HTMLElement): string[];
   }
 
   export interface JsavDialog {
