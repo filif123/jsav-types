@@ -3295,6 +3295,11 @@ declare module jsav {
     /**
      * The model answer for the exercise.
      */
+    modelav: JsavInstance;
+
+    /**
+     * The model answer for the exercise.
+     */
     score: JsavScore;
     
     /**
