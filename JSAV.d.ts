@@ -3298,6 +3298,16 @@ declare module jsav {
     modelav: JsavInstance;
 
     /**
+     * Structures for interaction with user.
+     */
+    initialStructures: JsavStructure | JsavStructure[];
+
+    /**
+     * Structures for modelling the correct solution.
+     */
+    modelStructures: JsavStructure | JsavStructure[];
+
+    /**
      * The model answer for the exercise.
      */
     score: JsavScore;
