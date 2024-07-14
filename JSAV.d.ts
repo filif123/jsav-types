@@ -387,13 +387,17 @@ declare module jsav {
 
     /**
      * Forwards the slideshow to the next step.
+     * @param filter - A function that can be used to filter the steps that are moved forward.
+     * @returns True if the step was successfully moved forward, false otherwise.
      */
-    forward(fun?: () => boolean): void;
+    forward(filter?: () => boolean): boolean;
 
     /**
      * Backwards the slideshow to the previous step.
+     * @param filter - A function that can be used to filter the steps that are moved backward.
+     * @returns True if the step was successfully moved backward, false otherwise.
      */
-    backward(fun?: () => boolean): void;
+    backward(filter?: () => boolean): boolean;
 
     /**
      * This method is used to go to the start of the slideshow.
@@ -1456,6 +1460,18 @@ declare module jsav {
     on(event: string, data: any[], handler: (event: Event) => void): void;
 
     element: Element;
+
+    /**
+     * gets or sets the current state of the structure.
+     * @param newState - the new state of the structure, if undefined, the function returns the current state.
+     */
+    state(newState?: any): any;
+
+    /**
+     * Jump to a specific step in the animation.
+     * @param step - the step to jump to.
+     */
+    jumpToStep(step: number): JsavInstance;
   }
 
   /**
