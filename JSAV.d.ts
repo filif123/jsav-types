@@ -455,6 +455,12 @@ declare module jsav {
      * Clears the undo and redo stacks.
      */
     clearAnimation(options?: { undo?: boolean; redo?: boolean }): void;
+
+    /**
+     * Jump to a specific step in the animation.
+     * @param step - the step to jump to.
+     */
+    jumpToStep(step: number): JsavInstance;
   }
 
   export interface QuestionOptions {
@@ -1466,12 +1472,6 @@ declare module jsav {
      * @param newState - the new state of the structure, if undefined, the function returns the current state.
      */
     state(newState?: any): any;
-
-    /**
-     * Jump to a specific step in the animation.
-     * @param step - the step to jump to.
-     */
-    jumpToStep(step: number): JsavInstance;
   }
 
   /**
